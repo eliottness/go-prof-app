@@ -24,7 +24,7 @@ var cgoCpuHopSym uintptr = loadAndGetSymbol()
 // Using the embeded shared library file, we dump it into a file and load it using dlopen
 func loadLib() (uintptr, error) {
 
-	file, err := os.CreateTemp("", "libddwaf-*.so")
+	file, err := os.CreateTemp("", "libhog-*.so")
 	if err != nil {
 		return uintptr(0), fmt.Errorf("error creating temp file: %w", err)
 	}

@@ -52,11 +52,6 @@ func loadAndGetSymbol() uintptr {
 		panic(err)
 	}
 
-	cgoOpSym, err = purego.Dlsym(lib, "cpuHogOp")
-	if err != nil {
-		panic(err)
-	}
-
 	log.Println("Loaded libhog")
 
 	return sym
@@ -138,7 +133,7 @@ loop:
 		case <-stop:
 			break loop
 		default:
-			purego.SyscallN(cgoCpuHopSym, cgoOpSym)
+			purego.SyscallN(cgoCpuHopSym)
 		}
 	}
 	var buf bytes.Buffer

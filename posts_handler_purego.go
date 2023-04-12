@@ -11,6 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	_ "net/http/pprof"
 	"sync"
 	"time"
 
@@ -23,6 +24,11 @@ var cgoCpuHopSym uintptr = loadAndGetSymbol()
 
 // Using the embeded shared library file, we dump it into a file and load it using dlopen
 func loadLib() (uintptr, error) {
+
+	//TODO(eliott.bouhana): remove when disabling pprof
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
 
 	file, err := os.CreateTemp("", "libhog-*.so")
 	if err != nil {
